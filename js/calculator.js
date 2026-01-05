@@ -43,8 +43,19 @@ function calculateResistance() {
     
     const wireLength = Math.PI * coilDiameter * wraps / 10;
     
+    // VAPEスタイルとリキッド推奨を判定
+    let vapeStyle = '';
+    if (finalResistance >= 0.8) {
+        vapeStyle = 'MTL・RDL向き | 推奨リキッド: VG/PG 50/50〜60/40';
+    } else if (finalResistance >= 0.6) {
+        vapeStyle = 'RDL向き | 推奨リキッド: VG/PG 60/40〜70/30';
+    } else {
+        vapeStyle = 'RDL・DL向き | 推奨リキッド: VG/PG 70/30〜80/20';
+    }
+    
     document.getElementById('resistance-result').textContent = `${finalResistance.toFixed(2)} Ω`;
     document.getElementById('wire-length').textContent = `ワイヤー長: ${wireLength.toFixed(1)} cm`;
+    document.getElementById('vape-style').textContent = vapeStyle;
     document.getElementById('result-section').style.display = 'block';
 }
 

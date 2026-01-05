@@ -100,6 +100,16 @@ button:hover {
     color: #666;
 }
 
+#vape-style {
+    font-size: 13px;
+    color: #007acc;
+    margin-top: 8px;
+    padding: 6px;
+    background: #f0f8ff;
+    border-radius: 4px;
+    border-left: 3px solid #007acc;
+}
+
 .note {
     margin-top: 12px;
     padding: 8px;
