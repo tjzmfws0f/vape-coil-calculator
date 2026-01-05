@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # VAPEコイル抵抗値計算機
 
 VAPEのコイル作成時に必要な抵抗値を簡単に計算できるWebアプリケーションです。
@@ -41,6 +40,3 @@ GitHub Pagesで公開可能です。
 ## ライセンス
 
 MIT License
-=======
-# vape-coil-calculator
->>>>>>> e608f218c05779951cbe4c5060c2947c713ae532
