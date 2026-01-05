@@ -59,10 +59,8 @@ function calculateResistance() {
     document.getElementById('result-section').style.display = 'block';
 }
 
-// 初期計算を削除し、イベントリスナーのみ設定
-document.addEventListener('change', function(e) {
-    if (e.target.matches('input, select')) calculateResistance();
-});
-document.addEventListener('input', function(e) {
-    if (e.target.matches('input[type="number"]')) calculateResistance();
-});
+function clearResults() {
+    document.getElementById('result-section').style.display = 'none';
+}
+
+// 初期計算を削除し、イベントリスナーを削除（ボタンクリック時のみ計算）

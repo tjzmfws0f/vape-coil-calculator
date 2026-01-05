@@ -73,6 +73,17 @@ button:hover {
     background: #005a99;
 }
 
+#clear-button {
+    background: #dc3545;
+    margin-top: 10px;
+    font-size: 12px;
+    padding: 6px;
+}
+
+#clear-button:hover {
+    background: #c82333;
+}
+
 .result {
     margin-top: 20px;
     padding: 16px;

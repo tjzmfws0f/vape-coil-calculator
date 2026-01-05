@@ -31,12 +31,26 @@
 
             <div class="input-group">
                 <label for="coil-diameter">コイル内径 (mm):</label>
-                <input type="number" id="coil-diameter" value="3" min="1" max="10" step="0.5">
+                <select id="coil-diameter">
+                    <option value="2">2.0 mm</option>
+                    <option value="2.5">2.5 mm</option>
+                    <option value="3" selected>3.0 mm</option>
+                    <option value="3.5">3.5 mm</option>
+                    <option value="4">4.0 mm</option>
+                    <option value="4.5">4.5 mm</option>
+                    <option value="5">5.0 mm</option>
+                </select>
             </div>
 
             <div class="input-group">
                 <label for="wraps">巻き数:</label>
-                <input type="number" id="wraps" value="6" min="1" max="20">
+                <select id="wraps">
+                    <option value="3">3 巻</option>
+                    <option value="4">4 巻</option>
+                    <option value="5">5 巻</option>
+                    <option value="6" selected>6 巻</option>
+                    <option value="7">7 巻</option>
+                </select>
             </div>
 
             <div class="input-group">
@@ -54,6 +68,7 @@
                 <div id="resistance-result">-</div>
                 <div id="wire-length">-</div>
                 <div id="vape-style"></div>
+                <button id="clear-button" onclick="clearResults()">結果をクリア</button>
                 <div class="note">
                     <small>※ あくまで参考値です。リードの長さやビルド方法により実際の抵抗値は変動します。</small>
                 </div>
