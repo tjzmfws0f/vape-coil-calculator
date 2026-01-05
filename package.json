@@ -1,0 +1,12 @@
+{
+  "name": "vape-coil-calculator",
+  "version": "1.0.0",
+  "description": "VAPEコイル抵抗値計算機",
+  "scripts": {
+    "start": "python3 server.py",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": ["vape", "coil", "calculator"],
+  "author": "",
+  "license": "MIT"
+}

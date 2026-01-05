@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAPEコイル抵抗値計算機</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>VAPEコイル抵抗値計算機</h1>
+        
+        <div class="calculator">
+            <div class="input-group">
+                <label for="wire-material">ワイヤー素材:</label>
+                <select id="wire-material">
+                    <option value="kanthal">カンタル (Kanthal A1)</option>
+                    <option value="nichrome">ニクロム (Nichrome 80)</option>
+                    <option value="stainless">ステンレス (SS316L)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="wire-gauge">ワイヤーゲージ (AWG):</label>
+                <select id="wire-gauge">
+                    <option value="24">24 AWG</option>
+                    <option value="26" selected>26 AWG</option>
+                    <option value="28">28 AWG</option>
+                    <option value="30">30 AWG</option>
+                    <option value="32">32 AWG</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="coil-diameter">コイル内径 (mm):</label>
+                <input type="number" id="coil-diameter" value="3" min="1" max="10" step="0.5">
+            </div>
+
+            <div class="input-group">
+                <label for="wraps">巻き数:</label>
+                <input type="number" id="wraps" value="6" min="1" max="20">
+            </div>
+
+            <div class="input-group">
+                <label for="coil-count">コイル数:</label>
+                <select id="coil-count">
+                    <option value="1">シングルコイル</option>
+                    <option value="2" selected>デュアルコイル</option>
+                </select>
+            </div>
+
+            <button onclick="calculateResistance()">抵抗値を計算</button>
+
+            <div class="result">
+                <h3>計算結果</h3>
+                <div id="resistance-result">-</div>
+                <div id="wire-length">-</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/calculator.js"></script>
+</body>
+</html>
