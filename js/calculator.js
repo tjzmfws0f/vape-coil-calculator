@@ -9,8 +9,7 @@ const WIRE_RESISTIVITY = {
 const AWG_DIAMETER = {
     24: 0.511,
     26: 0.405,
-    27: 0.361,
-    32: 0.202
+    27: 0.361
 };
 
 function calculateResistance() {
