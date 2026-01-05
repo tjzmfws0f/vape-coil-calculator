@@ -15,53 +15,35 @@ const AWG_DIAMETER = {
 };
 
 function calculateResistance() {
-    // 入力値を取得
     const material = document.getElementById('wire-material').value;
     const gauge = parseInt(document.getElementById('wire-gauge').value);
     const coilDiameter = parseFloat(document.getElementById('coil-diameter').value);
     const wraps = parseInt(document.getElementById('wraps').value);
     const coilCount = parseInt(document.getElementById('coil-count').value);
     
-    // ワイヤー直径を取得
+    // 入力値の検証
+    if (!coilDiameter || !wraps || coilDiameter <= 0 || wraps <= 0) {
+        document.getElementById('resistance-result').textContent = '入力値を確認してください';
+        document.getElementById('wire-length').textContent = '';
+        return;
+    }
+    
     const wireDiameter = AWG_DIAMETER[gauge];
-    
-    // ワイヤーの断面積を計算 (mm²)
     const crossSectionalArea = Math.PI * Math.pow(wireDiameter / 2, 2);
-    
-    // 1巻きあたりの長さを計算 (mm)
     const lengthPerWrap = Math.PI * coilDiameter;
-    
-    // 総ワイヤー長を計算 (mm)
     const totalLength = lengthPerWrap * wraps;
-    
-    // 1つのコイルの抵抗値を計算 (Ω)
     const singleCoilResistance = (WIRE_RESISTIVITY[material] * totalLength) / (crossSectionalArea * 1000);
-    
-    // 最終的な抵抗値を計算（並列接続の場合）
     const finalResistance = singleCoilResistance / coilCount;
     
-    // 結果を表示
-    document.getElementById('resistance-result').textContent = 
-        `${finalResistance.toFixed(2)} Ω`;
-    
-    document.getElementById('wire-length').textContent = 
-        `ワイヤー長: ${(totalLength * coilCount / 10).toFixed(1)} cm`;
+    document.getElementById('resistance-result').textContent = `${finalResistance.toFixed(3)} Ω`;
+    document.getElementById('wire-length').textContent = `ワイヤー長: ${(totalLength * coilCount / 10).toFixed(1)} cm`;
 }
 
-// ページ読み込み時に初期計算を実行
-document.addEventListener('DOMContentLoaded', function() {
-    calculateResistance();
-});
-
-// 入力値が変更されたときに自動計算
+// 初期計算とイベントリスナー
+document.addEventListener('DOMContentLoaded', calculateResistance);
 document.addEventListener('change', function(e) {
-    if (e.target.matches('input, select')) {
-        calculateResistance();
-    }
+    if (e.target.matches('input, select')) calculateResistance();
 });
-
 document.addEventListener('input', function(e) {
-    if (e.target.matches('input[type="number"]')) {
-        calculateResistance();
-    }
+    if (e.target.matches('input[type="number"]')) calculateResistance();
 });
