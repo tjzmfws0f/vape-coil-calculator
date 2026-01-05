@@ -1,8 +1,20 @@
-// ワイヤー素材の抵抗率 (Ω·mm²/m)
-const WIRE_RESISTIVITY = {
-    kanthal: 1.45,
-    nichrome: 1.09,
-    stainless: 0.75
+// VAPE一般的な組み合わせ参考値テーブル
+const VAPE_REFERENCE = {
+    kanthal: {
+        24: { base: 0.15, perWrap: 0.08 },
+        26: { base: 0.25, perWrap: 0.12 },
+        27: { base: 0.32, perWrap: 0.15 }
+    },
+    nichrome: {
+        24: { base: 0.12, perWrap: 0.06 },
+        26: { base: 0.20, perWrap: 0.10 },
+        27: { base: 0.25, perWrap: 0.12 }
+    },
+    stainless: {
+        24: { base: 0.08, perWrap: 0.04 },
+        26: { base: 0.13, perWrap: 0.065 },
+        27: { base: 0.16, perWrap: 0.08 }
+    }
 };
 
 // AWGゲージと直径の対応表 (mm)
@@ -19,26 +31,24 @@ function calculateResistance() {
     const wraps = parseInt(document.getElementById('wraps').value);
     const coilCount = parseInt(document.getElementById('coil-count').value);
     
-    // 入力値の検証
     if (!coilDiameter || !wraps || coilDiameter <= 0 || wraps <= 0) {
-        document.getElementById('resistance-result').textContent = '入力値を確認してください';
-        document.getElementById('wire-length').textContent = '';
+        document.getElementById('result-section').style.display = 'none';
         return;
     }
     
-    const wireDiameter = AWG_DIAMETER[gauge];
-    const crossSectionalArea = Math.PI * Math.pow(wireDiameter / 2, 2);
-    const lengthPerWrap = Math.PI * coilDiameter;
-    const totalLength = lengthPerWrap * wraps;
-    const singleCoilResistance = (WIRE_RESISTIVITY[material] * totalLength) / (crossSectionalArea * 1000);
+    const ref = VAPE_REFERENCE[material][gauge];
+    const diameterFactor = coilDiameter / 3.0; // 3mmを基準
+    const singleCoilResistance = (ref.base + ref.perWrap * wraps) * diameterFactor;
     const finalResistance = singleCoilResistance / coilCount;
     
-    document.getElementById('resistance-result').textContent = `${finalResistance.toFixed(3)} Ω`;
-    document.getElementById('wire-length').textContent = `ワイヤー長: ${(totalLength * coilCount / 10).toFixed(1)} cm`;
+    const wireLength = Math.PI * coilDiameter * wraps / 10;
+    
+    document.getElementById('resistance-result').textContent = `${finalResistance.toFixed(2)} Ω`;
+    document.getElementById('wire-length').textContent = `ワイヤー長: ${wireLength.toFixed(1)} cm`;
+    document.getElementById('result-section').style.display = 'block';
 }
 
-// 初期計算とイベントリスナー
-document.addEventListener('DOMContentLoaded', calculateResistance);
+// 初期計算を削除し、イベントリスナーのみ設定
 document.addEventListener('change', function(e) {
     if (e.target.matches('input, select')) calculateResistance();
 });

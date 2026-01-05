@@ -42,17 +42,20 @@
             <div class="input-group">
                 <label for="coil-count">コイル数:</label>
                 <select id="coil-count">
-                    <option value="1">シングルコイル</option>
-                    <option value="2" selected>デュアルコイル</option>
+                    <option value="1" selected>シングルコイル</option>
+                    <option value="2">デュアルコイル</option>
                 </select>
             </div>
 
             <button onclick="calculateResistance()">抵抗値を計算</button>
 
-            <div class="result">
+            <div class="result" id="result-section" style="display: none;">
                 <h3>計算結果</h3>
                 <div id="resistance-result">-</div>
                 <div id="wire-length">-</div>
+                <div class="note">
+                    <small>※ あくまで参考値です。リードの長さやビルド方法により実際の抵抗値は変動します。</small>
+                </div>
             </div>
         </div>
     </div>
