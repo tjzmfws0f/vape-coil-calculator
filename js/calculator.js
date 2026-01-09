@@ -63,4 +63,70 @@ function clearResults() {
     document.getElementById('result-section').style.display = 'none';
 }
 
+function saveBuild() {
+    const atomizer = document.getElementById('atomizer-name').value;
+    const liquid = document.getElementById('liquid-name').value;
+    
+    if (!atomizer || !liquid) {
+        alert('アトマイザー名とリキッド名を入力してください');
+        return;
+    }
+    
+    const build = {
+        date: new Date().toLocaleDateString('ja-JP'),
+        material: document.getElementById('wire-material').options[document.getElementById('wire-material').selectedIndex].text,
+        gauge: document.getElementById('wire-gauge').value + ' AWG',
+        diameter: document.getElementById('coil-diameter').value + 'mm',
+        wraps: document.getElementById('wraps').value + '巻',
+        coilCount: document.getElementById('coil-count').options[document.getElementById('coil-count').selectedIndex].text,
+        resistance: document.getElementById('resistance-result').textContent,
+        atomizer: atomizer,
+        liquid: liquid
+    };
+    
+    let builds = JSON.parse(localStorage.getItem('vapeBuilds') || '[]');
+    builds.unshift(build);
+    localStorage.setItem('vapeBuilds', JSON.stringify(builds));
+    
+    document.getElementById('atomizer-name').value = '';
+    document.getElementById('liquid-name').value = '';
+    
+    displayHistory();
+    alert('ビルドを保存しました！');
+}
+
+function displayHistory() {
+    const builds = JSON.parse(localStorage.getItem('vapeBuilds') || '[]');
+    const historyDiv = document.getElementById('build-history');
+    
+    if (builds.length === 0) {
+        historyDiv.innerHTML = '<p>保存されたビルドはありません</p>';
+        return;
+    }
+    
+    historyDiv.innerHTML = builds.map((build, index) => `
+        <div class="build-item">
+            <div class="build-header">
+                <strong>${build.atomizer} + ${build.liquid}</strong>
+                <span class="build-date">${build.date}</span>
+            </div>
+            <div class="build-details">
+                ${build.material} ${build.gauge} | ${build.diameter} ${build.wraps} | ${build.coilCount}<br>
+                <strong>${build.resistance}</strong>
+            </div>
+            <button onclick="deleteBuild(${index})" class="delete-btn">削除</button>
+        </div>
+    `).join('');
+}
+
+function deleteBuild(index) {
+    let builds = JSON.parse(localStorage.getItem('vapeBuilds') || '[]');
+    builds.splice(index, 1);
+    localStorage.setItem('vapeBuilds', JSON.stringify(builds));
+    displayHistory();
+}
+
+// ページ読み込み時に履歴を表示
+document.addEventListener('DOMContentLoaded', displayHistory);
+
 // 初期計算を削除し、イベントリスナーを削除（ボタンクリック時のみ計算）

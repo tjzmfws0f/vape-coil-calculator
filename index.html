@@ -68,10 +68,23 @@
                 <div id="resistance-result">-</div>
                 <div id="wire-length">-</div>
                 <div id="vape-style"></div>
+                
+                <div class="save-section">
+                    <h4>ビルドを保存</h4>
+                    <input type="text" id="atomizer-name" placeholder="アトマイザー名">
+                    <input type="text" id="liquid-name" placeholder="リキッド名">
+                    <button onclick="saveBuild()">保存</button>
+                </div>
+                
                 <button id="clear-button" onclick="clearResults()">結果をクリア</button>
                 <div class="note">
                     <small>※ あくまで参考値です。リードの長さやビルド方法により実際の抵抗値は変動します。</small>
                 </div>
+            </div>
+            
+            <div class="history-section">
+                <h3>ビルド履歴</h3>
+                <div id="build-history"></div>
             </div>
         </div>
     </div>
